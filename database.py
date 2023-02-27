@@ -36,12 +36,14 @@ def create_session():
     session = sessionmaker(bind=engine)
     return session()
 
-if __name__ == "__main__":
-    session = create_session()
-    clean_house = Project(title = "Clean the house")
-    session.add(clean_house)
-    session.commit()
+#
 
-    clean_bedroom = Task(description= "Clean bedroom", project_id=clean_house.project_id)
-    session.add(clean_bedroom)
-    session.commit()
+
+session = create_session()
+clean_house = Project(title = "Clean the house")
+session.add(clean_house)
+session.commit()
+
+clean_bedroom = Task(description= "Clean bedroom", project_id=clean_house.project_id)
+session.add(clean_bedroom)
+session.commit()

@@ -1,17 +1,20 @@
 <html>
   <body>
-    <h1> Project {{project_id}}</h1>
+    <h1> {{project.title}}</h1>
     <ul>
-      <li> Task 1 </li>
-      <li> Task 2 </li>
-      <li> Task 3 </li>
+        {% for task in tasks %}
+            <li> {{task.description}} </li>
+        {% endfor %}
     </ul>
     <hr3> Add New Task</hr3>
-      <form action="/add/task/{{project_id}}" method="POST">
+      <form action="/add/task/{{project.project_id}}" method="POST">
           <div> Task: <input type="text" name="task-description"></div>
           <br>
           <input type="submit" value="Add Task">
       </form>
+        {% for category,message in get_flashed_messages(with_categories=true) %}
+            <div style ="color: {{category}}"> {{ message }} </div>
+        {% endfor %}
 
   </body>
 </html>
