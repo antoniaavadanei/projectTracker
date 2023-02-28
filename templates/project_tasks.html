@@ -1,24 +1,29 @@
-<html>
-  <body>
-    <h1> {{project.title}}</h1>
-    <ul>
+{% extends 'base.html' %}
+
+{% block content %}
+<h1> {{project.title}}</h1>
+<div class="content">
         {% for task in tasks %}
-            <li> {{task.description}}
-                <form method="post" action="{{ url_for('delete_task', project_id=project.project_id,task_id=task.task_id)}}">
+        <div class="post">
+            <p> {{task.description}}
+                <form action="{{ url_for('delete_task', project_id=project.project_id,task_id=task.task_id)}}"
+                      method="post">
                     <input class="btn" type="submit" value="Delete">
                 </form>
-            </li>
+            </p>
+        </div>
         {% endfor %}
-    </ul>
+</div>
+<br>
+<div>
     <h3> Add New Task</h3>
-      <form action="/add/task/{{project.project_id}}" method="POST">
-          <div> Task: <input type="text" name="task-description"></div>
-          <br>
-          <input type="submit" value="Add Task">
-      </form>
-        {% for category,message in get_flashed_messages(with_categories=true) %}
-            <div style ="color: {{category}}"> {{ message }} </div>
-        {% endfor %}
-
-  </body>
-</html>
+    <form action="/add/task/{{project.project_id}}" method="POST">
+        <div> Task: <input name="task-description" type="text"></div>
+        <br>
+        <input type="submit" value="Add Task">
+    </form>
+</div>
+{% for category,message in get_flashed_messages(with_categories=true) %}
+<div style="color: {{category}}"> {{ message }}</div>
+{% endfor %}
+{% endblock %}
