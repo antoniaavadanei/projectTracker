@@ -53,6 +53,19 @@ def add_task(project_id):
         db.session.commit()
         flash("Task added successfully", "green")
     return redirect(url_for('show_tasks',project_id=project_id))
+
+@app.route("/delete/<project_id>", methods=['POST'])
+def delete_project(project_id):
+    # delete the task
+    tasks = Task.query.filter_by(project_id=project_id).all()
+    for task in tasks:
+        db.session.delete(task)
+    db.session.commit()
+    project = Project.query.get_or_404(project_id)
+    db.session.delete(project)
+    db.session.commit()
+    flash("Project deleted", "green")
+    return redirect(url_for('show_projects'))
 @app.route("/delete/<project_id>/task/<task_id>", methods=['POST'])
 def delete_task(project_id, task_id):
     # delete the task
