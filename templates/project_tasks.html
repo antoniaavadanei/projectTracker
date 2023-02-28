@@ -23,7 +23,11 @@
         <input type="submit" value="Add Task">
     </form>
 </div>
+
+<div>
 {% for category,message in get_flashed_messages(with_categories=true) %}
 <div style="color: {{category}}"> {{ message }}</div>
 {% endfor %}
+</div>
+
 {% endblock %}
