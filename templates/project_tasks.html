@@ -3,10 +3,14 @@
     <h1> {{project.title}}</h1>
     <ul>
         {% for task in tasks %}
-            <li> {{task.description}} </li>
+            <li> {{task.description}}
+                <form method="post" action="{{ url_for('delete_task', project_id=project.project_id,task_id=task.task_id)}}">
+                    <input class="btn" type="submit" value="Delete">
+                </form>
+            </li>
         {% endfor %}
     </ul>
-    <hr3> Add New Task</hr3>
+    <h3> Add New Task</h3>
       <form action="/add/task/{{project.project_id}}" method="POST">
           <div> Task: <input type="text" name="task-description"></div>
           <br>
